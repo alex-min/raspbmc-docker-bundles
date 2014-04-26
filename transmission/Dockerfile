@@ -1,6 +1,6 @@
 # Use phusion/baseimage as base image. To make your builds reproducible, make
 # sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
+#  See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
 FROM phusion/baseimage:0.9.9
 MAINTAINER MINETTE Alexandre, minette.alexandre@gmail.com
@@ -32,7 +32,7 @@ RUN chmod +x /etc/service/transmission-daemon/run
 
 
 RUN chown debian-transmission:debian-transmission -R /var/downloads
-
+RUN echo 'Files will be downloaded here' > /var/downloads/README.txt
 # start the deamon 
 
 # Clean up APT when done.

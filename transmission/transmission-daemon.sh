@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 # launch transmission deamon
-exec chown debian-transmission:debian-transmission -R /var/downloads
-exec cp /etc/transmission-daemon/settings_override.json /etc/transmission-daemon/settings.json
-exec /usr/bin/transmission-daemon -f --config-dir /var/lib/transmission-daemon/info
+chown debian-transmission:debian-transmission -R /var/downloads
+cp /etc/transmission-daemon/settings_override.json /etc/transmission-daemon/settings.json
+/usr/bin/transmission-daemon -f --config-dir /var/lib/transmission-daemon/info
