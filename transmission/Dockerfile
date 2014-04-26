@@ -19,14 +19,21 @@ CMD ["/sbin/my_init"]
 
 RUN echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrCt4nVBbO3toUJmpwdkJnAURNieMl3nVCcRu7vF3B590xRuJyBenIrUFba4XzgHtDuf+k+KCfLG46FMl6BpoNW+uixeMn50Hb0GSeBd7WxVwYbpPfR7qVYL5qYm3p2kdobiCRL8QEoSzt3EL06lYYopUDhJBphla2LgCHvslnNGdQPx7K8WlfyQkcxUC4MLBTwVYPOwfzNOfKCZHtbeWq2RdIefgRkXKsigNltzhbFN/6g+98sOqux2dgIJp9hdDO6Ej4u1VF1JrNF9jgxc5mv8/tDXT7hjXrJUoTZzxpivOzvh2JHExBkrm9zVR4Cx4L/OWy0F95OgQoMeMXY0aZ perso@pelos-K53SC.home' > /root/.ssh/authorized_keys
 
+
 # installing transmission
 RUN apt-get update
 RUN apt-get install -y transmission-cli transmission-daemon
 
+# setup the deamon...
+RUN curl https://raw.githubusercontent.com/alex-min/raspbmc-docker-bundles/master/transmission/settings.json > /etc/transmission-daemon/settings_override.json
+RUN mkdir -p /etc/service/transmission-daemon
+RUN curl https://raw.githubusercontent.com/alex-min/raspbmc-docker-bundles/master/transmission/transmission-daemon.sh > /etc/service/transmission-daemon/run
+RUN chmod +x /etc/service/transmission-daemon/run
+
+
 RUN chown debian-transmission:debian-transmission -R /var/downloads
 
 # start the deamon 
-#ENTRYPOINT service transmission-daemon start
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
